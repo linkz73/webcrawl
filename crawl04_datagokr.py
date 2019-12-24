@@ -1,8 +1,8 @@
 # 공공데이터포털 > 데이터셋 > 오픈API
 # 국내관광정보서비스 > api 선택후 > 활용신청
 import requests
-import bs4
-# import json
+# import bs4
+import json
 
 endpoint = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 serviceKey = "colkNjJCcXW11EUqoQuhLNWmPUiskCZYJd5cSabF%2F9HRrSrFTK2lsGIi8hd%2B4ZQmH6OIEYxMBFYY5zultr5uZA%3D%3D"
@@ -14,8 +14,8 @@ MobileOS = "ETC"
 MobileApp = "AppTest"
 arrange = "A"
 contentTypeId = "15"
-areaCode = "1"
-sigunguCode = "4"
+areaCode = "2"
+sigunguCode = "6"
 listYN = "Y"
 
 paramset = "serviceKey=" + serviceKey + "&numOfRows=" + numOfRows + "&pageSize=" + pageSize + "&pageNo=" + pageNo + \
@@ -23,7 +23,14 @@ paramset = "serviceKey=" + serviceKey + "&numOfRows=" + numOfRows + "&pageSize="
            contentTypeId + "&areaCode=" + areaCode + "&sigunguCode=" + sigunguCode + "&listYN=" + listYN + "&_type=json"
 
 url = endpoint + paramset
-print(url)
-result = requests.get(url)
-bs_obj = bs4.BeautifulSoup(result.content, "html.parser")
-print(bs_obj)
+# print(url)
+# result = requests.get(url)
+# bs_obj = bs4.BeautifulSoup(result.co
+# ntent, "html.parser")
+# print(bs_obj)
+
+response = requests.get(url)
+json_objs = json.loads(response.text)
+
+for i in json_objs['response']['body']['items']['item']:
+    print(i)
